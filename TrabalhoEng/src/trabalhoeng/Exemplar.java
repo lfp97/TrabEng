@@ -15,4 +15,28 @@ public class Exemplar extends Livro {
         this.status= statu;
     }
 
+    public String getCodLivro() {
+        return codLivro;
+    }
+
+    public void setCodLivro(String codLivro) {
+        this.codLivro = codLivro;
+    }
+
+    public String getCodExemplar() {
+        return codExemplar;
+    }
+
+    public void setCodExemplar(String codExemplar) {
+        this.codExemplar = codExemplar;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }
