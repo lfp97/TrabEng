@@ -1,25 +1,29 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
-public class Livro
-{
+public class Livro {
+
     private String codigo;
     private String titulo;
     private String editora;
     private String autores;
     private String edicao;
     private String anoPublic;
-    private ArrayList <Exemplar> listaExemplares;
+    private ArrayList<Exemplar> listaExemplares;
+    private ArrayList<Reserva> listaReservas;
 
-    public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic) {
+    public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, ArrayList<Reserva> listaReservas) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.editora = editora;
         this.autores = autores;
         this.edicao = edicao;
         this.anoPublic = anoPublic;
+        this.listaExemplares = listaExemplares;
+        this.listaReservas = listaReservas;
     }
 
     public String getCodigo() {
@@ -70,30 +74,41 @@ public class Livro
         this.anoPublic = anoPublic;
     }
 
-    public ArrayList <Exemplar> getListaExemplares() {
+    public ArrayList<Exemplar> getListaExemplares() {
         return listaExemplares;
     }
 
-    public void setListaExemplares(ArrayList <Exemplar> listaExemplares) {
+    public void setListaExemplares(ArrayList<Exemplar> listaExemplares) {
         this.listaExemplares = listaExemplares;
     }
-    
-    public Iterator getIteratorLista ()
-    {
+
+    public Iterator getIteratorListaExemplares() {
         return listaExemplares.iterator();
     }
-    
-    public int getNumeroReservas ()
-    {
-        Iterator <Exemplar> iterator= listaExemplares.iterator();
-        int qtd= 0;
-        while (iterator.hasNext())
-        {
-            Exemplar aux= iterator.next();
+
+    public int getNumeroReservas() {
+        Iterator<Exemplar> iterator = listaExemplares.iterator();
+        int qtd = 0;
+        while (iterator.hasNext()) {
+            Exemplar aux = iterator.next();
             if (!(aux.getStatus().equalsIgnoreCase("Disponível"))) //testando se o exemplar esta >indisponivel<
+            {
                 qtd++;
+            }
         }
         return qtd;
     }
-    
+
+    public ArrayList<Reserva> getListaReservas() {
+        return listaReservas;
+    }
+
+    public void setListaReservas(ArrayList<Reserva> listaReservas) {
+        this.listaReservas = listaReservas;
+    }
+
+    public Iterator getIteratorReservas ()
+    {
+        return listaReservas.iterator();
+    }
 }

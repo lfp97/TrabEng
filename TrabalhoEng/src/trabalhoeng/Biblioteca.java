@@ -28,7 +28,7 @@ public class Biblioteca {
 
     }
 
-    public void ConsultarLivro(String titulo)
+    public void ConsultarLivro(String titulo) //se puder enviar obj ao inves de titulo
     {
         Iterator<Livro> it = listaLivros.iterator();
         while (it.hasNext())
@@ -40,14 +40,14 @@ public class Biblioteca {
                 System.out.println("Quantidade de Reservas: " + l.getNumeroReservas());
                 if (l.getNumeroReservas() != 0)
                 {
-                    int aux=0;
-                    aux= l.getNumeroReservas();
-                    for (int i=0; i<aux; i++)
+                    Iterator<Reserva> itRes= l.getIteratorReservas();
+                    while (itRes.hasNext())
                     {
-                        System.out.println("!"); //nome dos usuarios q fizeram reserva    <<<IMPLEMENTAR 
+                        Reserva auxre= itRes.next();
+                        System.out.println("Reservado por: " + auxre.getNomeUsuario());
                     }
                 }
-                Iterator<Exemplar> ite= l.getIteratorLista();
+                Iterator<Exemplar> ite= l.getIteratorListaExemplares();
                 while (ite.hasNext())
                 {
                     Exemplar e= ite.next();
@@ -55,17 +55,49 @@ public class Biblioteca {
                     System.out.println("Status: " + e.getStatus());
                     if (!(e.getStatus().equalsIgnoreCase("Disponível"))) // se >indisponivel<
                     {
-                        System.out.println("!");//nome do usuario q fez o emprestimo    <<<IMPLEMENTAR 
-                        System.out.println("!");//data do emprestimo            <<<IMPLEMENTAR 
-                        System.out.println("!");//data prevista de entrega      <<<IMPLEMENTAR 
+                        
+                        System.out.println("Emprestado a: " + e.getNomeUsuarioEmprestado());
+                        System.out.println("Emprestado em: " + e.getDataEmprestimo());//data do emprestimo
+                        System.out.println("Devolucao deste exemplar prevista para: " + e.getDataDevolucao());
                     }
                 }
             }
         }
     }
 
-    public void ConsultarUsuario() {
-
+    public void ConsultarUsuario(int c) //se puder, enviar o obj 
+    {
+        Iterator<Usuario> it= listaUsuarios.iterator();
+        while (it.hasNext())
+        {
+            Usuario u= it.next();
+            if (u.getCodigo() == c)
+            {
+                Iterator<Exemplar> e= u.getIteratorEmp();
+                while (e.hasNext()) //emprestimos
+                {
+                    Exemplar aux= e.next();
+                    System.out.println("Titulo do Exemplar: " + aux.getTitulo());
+                    System.out.println("Data do Emprestimo: " + aux.getDataEmprestimo());
+                    System.out.println("Status:  " + aux.getStatus());
+                    System.out.println("Data da Devolucao:  " + aux.getDataDevolucao());
+                }
+                /*Iterator<Livro> l= u.getIteratorRes(); como era a iteracao de reservas antes caso de algum problema
+                while (l.hasNext()) // reservas
+                {
+                    Livro aux= l.next();
+                    System.out.println("Titulo do Livro Reservado: " + aux.getTitulo());
+                    System.out.println("Data da Reserva: " + aux.getDataSolicitacaoReserva());
+                }*/
+                Iterator<Reserva> r= u.getIteratorRes();
+                while (r.hasNext()) // reservas            esse metodo todo pode dar problema
+                {
+                    Reserva aux= r.next();
+                    System.out.println("Titulo do Livro Reservado: " + aux.getTituloLivro());
+                    System.out.println("Data da Reserva: " + aux.getDataReserva());
+                }
+            }
+        }
     }
 
     public void ConsultarNotificacoes() {
