@@ -7,17 +7,15 @@ public class Usuario
 {
     private String nome;
     private int codigo;
-    private ArrayList <Exemplar> listaEmprestimos; //provavelmente esse <exemplar> tem q virar <emprestimos>
-    private ArrayList <Reserva> listaReservas; // antes era: private ArrayList <Exemplar> listaReservas;
+    private ArrayList <Emprestimo> listaEmprestimos;
+    private ArrayList <Reserva> listaReservas;
 
-    public Usuario(String nome, int codigo, ArrayList<Exemplar> listaEmprestimos, ArrayList<Reserva> listaReservas) {
+    public Usuario(String nome, int codigo, ArrayList<Emprestimo> listaEmprestimos, ArrayList<Reserva> listaReservas) {
         this.nome = nome;
         this.codigo = codigo;
         this.listaEmprestimos = listaEmprestimos;
         this.listaReservas = listaReservas;
     }
-
-    
 
     public Usuario(String nome, int codigo) {
         this.nome = nome;
@@ -55,11 +53,11 @@ public class Usuario
         
     }
 
-    public ArrayList <Exemplar> getListaEmprestimos() {
+    public ArrayList <Emprestimo> getListaEmprestimos() {
         return listaEmprestimos;
     }
 
-    public void setListaEmprestimos(ArrayList <Exemplar> listaEmprestimos) {
+    public void setListaEmprestimos(ArrayList <Emprestimo> listaEmprestimos) {
         this.listaEmprestimos = listaEmprestimos;
     }
     

@@ -7,7 +7,7 @@ public class Professor extends Usuario //emprestimo de 7 dias
 
     private int notificacoes;
 
-    public Professor(String nome, int codigo, ArrayList<Exemplar> listaEmprestimos, ArrayList<trabalhoeng.Reserva> listaReservas) {
+    public Professor(String nome, int codigo, ArrayList<Emprestimo> listaEmprestimos, ArrayList<trabalhoeng.Reserva> listaReservas) {
         super(nome, codigo, listaEmprestimos, listaReservas);
     }
 

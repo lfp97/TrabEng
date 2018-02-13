@@ -1,36 +1,59 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 public class Biblioteca {
 
-    ArrayList <Livro> listaLivros;
-    ArrayList <Usuario> listaUsuarios;
-    ArrayList <Reserva> listaReservas;
-    ArrayList <Emprestimo> listaEmprestimos;
+    private ArrayList <Livro> listaLivros;
+    private ArrayList <Usuario> listaUsuarios;
+    private ArrayList <Reserva> listaReservas;
+    private ArrayList <Emprestimo> listaEmprestimos;
+    private ArrayList <Usuario> listaObservadores;
     
-    public void RealizarEmprestimo(Emprestimo e)
+    public void RealizarEmprestimo(Usuario user, Exemplar exe, Date dataEmp, Date dataDev, String state)
     {
+        Emprestimo e= new Emprestimo(user, exe, dataEmp, dataDev, state);
         listaEmprestimos.add(e);
-        int aux= listaLivros.indexOf(e);
-        listaLivros.get(aux);
+        int aux= listaLivros.indexOf(e); //pega o indice do livro dentro da lista
+        listaLivros.get(aux).subtrairQtdExemplares();  //IMPORTANTE: DIMINUINDO A QTD DE EXEMPLARES DISPONIVEIS DESTE LIVRO
     }
 
-    public void RealizarDevolucao() {
-
+    public void RealizarDevolucao(Usuario user, Livro liv)
+    {
+        String codLiv= liv.getCodigo();
+        boolean flag= false;
+        Iterator <Emprestimo> it= user.getIteratorEmp();
+        while (it.hasNext())
+        {
+            Emprestimo emp= it.next();
+            if (emp.getCodLivroDoExemplar().equals(codLiv))
+                if (emp.getStatus().equals("emprestado"));
+                    flag= true;
+        }
+        if (flag)
+            {
+                listaLivros.get(Integer.parseInt(codLiv)).adicionarQtdExemplares();
+                System.out.println("Devolução realizada com sucesso.");
+            }
+        else
+            System.out.println("Não existe emprestimo em aberto deste livro para este usuario.");
     }
 
-    public void RealizarReserva() {
-
+    public void RealizarReserva(Usuario user, Livro liv, Date dataRes)
+    {
+        //implementar
     }
 
-    public void CriarObservador() {
-
+    public void CriarObservador(Usuario user)
+    {
+        listaObservadores.add(user);
     }
 
-    public void AvisarObservador() {
-
+    public void AvisarObservador()
+    {
+        
     }
 
     public void ConsultarLivro(String titulo) //se puder enviar obj ao inves de titulo
@@ -111,6 +134,51 @@ public class Biblioteca {
 
     public void Sair() {
 
+    }
+
+    
+    
+    
+    
+    
+    public ArrayList <Livro> getListaLivros() {
+        return listaLivros;
+    }
+
+    public void setListaLivros(ArrayList <Livro> listaLivros) {
+        this.listaLivros = listaLivros;
+    }
+
+    public ArrayList <Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
+    public void setListaUsuarios(ArrayList <Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
+
+    public ArrayList <Reserva> getListaReservas() {
+        return listaReservas;
+    }
+
+    public void setListaReservas(ArrayList <Reserva> listaReservas) {
+        this.listaReservas = listaReservas;
+    }
+
+    public ArrayList <Emprestimo> getListaEmprestimos() {
+        return listaEmprestimos;
+    }
+
+    public void setListaEmprestimos(ArrayList <Emprestimo> listaEmprestimos) {
+        this.listaEmprestimos = listaEmprestimos;
+    }
+
+    public ArrayList <Usuario> getListaObservadores() {
+        return listaObservadores;
+    }
+
+    public void setListaObservadores(ArrayList <Usuario> listaObservadores) {
+        this.listaObservadores = listaObservadores;
     }
 
 }

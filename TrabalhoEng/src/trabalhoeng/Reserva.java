@@ -9,14 +9,14 @@ public class Reserva {
     private Livro livro;
     private Date dataReserva;
     private String tituloLivro;
-    private String codExemplar;
+    private String status; //ativa ou inativa
 
-    public Reserva(Usuario user, Livro livro, Date dataReserva, String tituloLivro, String codExemplar) {
+    public Reserva(Usuario user, Livro livro, Date dataReserva, String tituloLivro, String statu) {
         this.user = user;
         this.livro = livro;
         this.dataReserva = dataReserva;
         this.tituloLivro = tituloLivro;
-        this.codExemplar = codExemplar;
+        this.status= statu;
     }
 
     public Date getDataReserva() {
@@ -51,19 +51,19 @@ public class Reserva {
         this.tituloLivro = tituloLivro;
     }
 
-    public String getCodExemplar() {
-        return codExemplar;
-    }
-
-    public void setCodExemplar(String codExemplar) {
-        this.codExemplar = codExemplar;
-    }
-
     public Livro getLivro() {
         return livro;
     }
 
     public void setLivro(Livro livro) {
         this.livro = livro;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

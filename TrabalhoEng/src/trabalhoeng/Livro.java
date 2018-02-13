@@ -121,4 +121,14 @@ public class Livro {
     public void setQtdExemplares(int qtdExemplares) {
         this.qtdExemplares = qtdExemplares;
     }
+    
+    public void subtrairQtdExemplares ()
+    {
+        this.qtdExemplares--;
+    }
+    
+    public void adicionarQtdExemplares ()
+    {
+        this.qtdExemplares++;
+    }
 }
