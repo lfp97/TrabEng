@@ -13,14 +13,8 @@ public class Exemplar extends Livro {
     private Date dataDevolucao;
     private String nomeUsuarioEmprestado;
 
-    public Exemplar(String codLivro, String codExemplar, String status, Date dataEmprestimo, Date dataDevolucao, String nomeUsuarioEmprestado, String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, ArrayList<Reserva> listaReservas) {
-        super(codigo, titulo, editora, autores, edicao, anoPublic, listaExemplares, listaReservas);
-        this.codLivro = codLivro;
-        this.codExemplar = codExemplar;
-        this.status = status;
-        this.dataEmprestimo = dataEmprestimo;
-        this.dataDevolucao = dataDevolucao;
-        this.nomeUsuarioEmprestado = nomeUsuarioEmprestado;
+    public Exemplar(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, ArrayList<Reserva> listaReservas, int exem) {
+        super(codigo, titulo, editora, autores, edicao, anoPublic, listaExemplares, listaReservas, exem);
     }
 
     public String getCodLivro() {

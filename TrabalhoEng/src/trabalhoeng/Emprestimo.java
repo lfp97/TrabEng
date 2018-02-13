@@ -27,6 +27,11 @@ public class Emprestimo {
     public void setUser(Usuario user) {
         this.user = user;
     }
+    
+    public String getNome ()
+    {
+        return this.user.getNome();
+    }
 
     public Date getDataEmprestimo() {
         return dataEmprestimo;

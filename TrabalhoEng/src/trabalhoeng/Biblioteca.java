@@ -7,9 +7,14 @@ public class Biblioteca {
 
     ArrayList <Livro> listaLivros;
     ArrayList <Usuario> listaUsuarios;
+    ArrayList <Reserva> listaReservas;
+    ArrayList <Emprestimo> listaEmprestimos;
     
-    public void RealizarEmprestimo() {
- 
+    public void RealizarEmprestimo(Emprestimo e)
+    {
+        listaEmprestimos.add(e);
+        int aux= listaLivros.indexOf(e);
+        listaLivros.get(aux);
     }
 
     public void RealizarDevolucao() {

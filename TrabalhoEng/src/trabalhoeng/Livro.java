@@ -13,9 +13,10 @@ public class Livro {
     private String edicao;
     private String anoPublic;
     private ArrayList<Exemplar> listaExemplares;
+    private int qtdExemplares;
     private ArrayList<Reserva> listaReservas;
 
-    public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, ArrayList<Reserva> listaReservas) {
+    public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, ArrayList<Reserva> listaReservas, int exem) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.editora = editora;
@@ -24,6 +25,7 @@ public class Livro {
         this.anoPublic = anoPublic;
         this.listaExemplares = listaExemplares;
         this.listaReservas = listaReservas;
+        this.qtdExemplares= exem;
     }
 
     public String getCodigo() {
@@ -110,5 +112,13 @@ public class Livro {
     public Iterator getIteratorReservas ()
     {
         return listaReservas.iterator();
+    }
+
+    public int getQtdExemplares() {
+        return qtdExemplares;
+    }
+
+    public void setQtdExemplares(int qtdExemplares) {
+        this.qtdExemplares = qtdExemplares;
     }
 }

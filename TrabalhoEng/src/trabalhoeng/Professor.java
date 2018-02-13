@@ -2,7 +2,8 @@ package trabalhoeng;
 
 import java.util.ArrayList;
 
-public class Professor extends Usuario {
+public class Professor extends Usuario //emprestimo de 7 dias
+{
 
     private int notificacoes;
 
