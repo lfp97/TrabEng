@@ -15,26 +15,33 @@ public class Biblioteca {
     public void RealizarEmprestimo(Usuario user, Exemplar exe, Date dataEmp, Date dataDev, String state)
     {
         Emprestimo e= new Emprestimo(user, exe, dataEmp, dataDev, state);
-        listaEmprestimos.add(e);
-        int aux= listaLivros.indexOf(e); //pega o indice do livro dentro da lista
-        listaLivros.get(aux).subtrairQtdExemplares();  //IMPORTANTE: DIMINUINDO A QTD DE EXEMPLARES DISPONIVEIS DESTE LIVRO
+        listaEmprestimos.add(e); //adicionando o novo emprestimo na lista
+        listaUsuarios.get(listaUsuarios.indexOf(user)).adicionarEmprestimoNaLista(e); //adicionar esse emprestimo na lista do usuario
+        
+        //remover 1 exemplar do livro
+        Iterator <Livro> ite= listaLivros.iterator();
+        while (ite.hasNext())
+        {
+            Livro liv= ite.next();
+            if (liv.getCodigo().equals(exe.getCodLivro())) //testando se o livro e o msm do emprestimo
+                listaLivros.get(listaLivros.indexOf(liv)).subtrairQtdExemplares();//IMPORTANTE: DIMINUINDO A QTD DE EXEMPLARES DISPONIVEIS DESTE LIVRO
+        }
     }
 
     public void RealizarDevolucao(Usuario user, Livro liv)
     {
-        String codLiv= liv.getCodigo();
         boolean flag= false;
         Iterator <Emprestimo> it= user.getIteratorEmp();
         while (it.hasNext())
         {
             Emprestimo emp= it.next();
-            if (emp.getCodLivroDoExemplar().equals(codLiv))
-                if (emp.getStatus().equals("emprestado"));
+            if (emp.getCodLivroDoExemplar().equals(liv.getCodigo()))//testando se existe o emprestimo
+                if (emp.getStatus().equals("emprestado"));//testando se o emprestimo existente esta ativo
                     flag= true;
         }
         if (flag)
             {
-                listaLivros.get(Integer.parseInt(codLiv)).adicionarQtdExemplares();
+                listaLivros.get(listaLivros.indexOf(liv)).adicionarQtdExemplares();//adicionando 1 exemplar na biblioteca
                 System.out.println("Devolução realizada com sucesso.");
             }
         else

@@ -61,6 +61,11 @@ public class Usuario
         this.listaEmprestimos = listaEmprestimos;
     }
     
+    public void adicionarEmprestimoNaLista (Emprestimo e)
+    {
+        this.listaEmprestimos.add(e);
+    }
+    
     public Iterator getIteratorEmp ()
     {
         return this.listaEmprestimos.iterator();
