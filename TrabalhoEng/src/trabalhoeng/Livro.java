@@ -15,8 +15,9 @@ public class Livro {
     private ArrayList<Exemplar> listaExemplares;
     private int qtdExemplares;
     private ArrayList<Reserva> listaReservas;
+    private int qtdObs;
 
-    public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, ArrayList<Reserva> listaReservas, int exem) {
+    public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, int qtdExemplares, ArrayList<Reserva> listaReservas, int qtdObs) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.editora = editora;
@@ -24,8 +25,9 @@ public class Livro {
         this.edicao = edicao;
         this.anoPublic = anoPublic;
         this.listaExemplares = listaExemplares;
+        this.qtdExemplares = qtdExemplares;
         this.listaReservas = listaReservas;
-        this.qtdExemplares= exem;
+        this.qtdObs = qtdObs;
     }
 
     public String getCodigo() {
@@ -130,5 +132,27 @@ public class Livro {
     public void adicionarQtdExemplares ()
     {
         this.qtdExemplares++;
+    }
+
+    public int getQtdObservadores()
+    {
+        int result=0;
+        Iterator <Reserva> it= listaReservas.iterator();
+        while (it.hasNext())
+        {
+            Reserva re= it.next();
+            if (re.getStatus().equals("ativa"))
+                result++;
+        }
+        return result;
+    }
+
+    public void setQtdObs(int qtdObs) {
+        this.qtdObs = qtdObs;
+    }
+    
+    public void addObservador ()
+    {
+        this.qtdObs++;
     }
 }

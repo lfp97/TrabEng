@@ -13,9 +13,11 @@ public class Exemplar extends Livro {
     private Date dataDevolucao;
     private String nomeUsuarioEmprestado;
 
-    public Exemplar(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, ArrayList<Reserva> listaReservas, int exem) {
-        super(codigo, titulo, editora, autores, edicao, anoPublic, listaExemplares, listaReservas, exem);
+    public Exemplar(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, int qtdExemplares, ArrayList<Reserva> listaReservas, int qtdObs) {
+        super(codigo, titulo, editora, autores, edicao, anoPublic, listaExemplares, qtdExemplares, listaReservas, qtdObs);
     }
+
+    
 
     public String getCodLivro() {
         return codLivro;

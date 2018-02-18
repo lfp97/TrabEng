@@ -1,87 +1,58 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
-public class Usuario
+public interface Usuario
 {
-    private String nome;
+    String nome="";
+    int cod=0;
+    int diasEmprestimo=0;
+    /*private String nome;
     private int codigo;
     private ArrayList <Emprestimo> listaEmprestimos;
-    private ArrayList <Reserva> listaReservas;
+    private ArrayList <Reserva> listaReservas;*/
 
-    public Usuario(String nome, int codigo, ArrayList<Emprestimo> listaEmprestimos, ArrayList<Reserva> listaReservas) {
+    /*public Usuario(String nome, int codigo, ArrayList<Emprestimo> listaEmprestimos, ArrayList<Reserva> listaReservas) {
         this.nome = nome;
         this.codigo = codigo;
         this.listaEmprestimos = listaEmprestimos;
         this.listaReservas = listaReservas;
-    }
-
-    public Usuario(String nome, int codigo) {
-        this.nome = nome;
-        this.codigo = codigo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
+    }*/
     
-    public void Emprestimo()
-    {
-        
-    }
+    public int getDiasEmprestimo ();
     
-    public void Devolucao()
-    {
-        
-    }
-    
-    public void Reserva()
-    {
-        
-    }
+    public int getNotificacoes();
 
-    public ArrayList <Emprestimo> getListaEmprestimos() {
-        return listaEmprestimos;
-    }
+    public void addNotificacao();
 
-    public void setListaEmprestimos(ArrayList <Emprestimo> listaEmprestimos) {
-        this.listaEmprestimos = listaEmprestimos;
-    }
-    
-    public void adicionarEmprestimoNaLista (Emprestimo e)
-    {
-        this.listaEmprestimos.add(e);
-    }
-    
-    public Iterator getIteratorEmp ()
-    {
-        return this.listaEmprestimos.iterator();
-    }
+    public String getNome();
 
-    public ArrayList <Reserva> getListaReservas() {
-        return listaReservas;
-    }
+    public void setNome(String nome);
 
-    public void setListaReservas(ArrayList <Reserva> listaReservas) {
-        this.listaReservas = listaReservas;
-    }
+    public int getCodigo();
+
+    public void setCodigo(int codigo);
     
-    public Iterator getIteratorRes ()
-    {
-        return this.listaReservas.iterator();
-    }
+    public boolean Emprestimo(Date data);
+    
+    public void Devolucao();
+    
+    public void Reserva();
+
+    public ArrayList <Emprestimo> getListaEmprestimos();
+
+    public void setListaEmprestimos(ArrayList <Emprestimo> listaEmprestimos);
+    
+    public void adicionarEmprestimoNaLista (Emprestimo e);
+    
+    public Iterator getIteratorEmp ();
+
+    public ArrayList <Reserva> getListaReservas();
+
+    public void setListaReservas(ArrayList <Reserva> listaReservas);
+    
+    public Iterator getIteratorRes ();
     
 }
