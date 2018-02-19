@@ -1,18 +1,19 @@
 package trabalhoeng;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Emprestimo {
 
     private Usuario user;
     private Exemplar exemplar;
-    private Date dataEmprestimo;
-    private Date dataDevolucao;
+    private Calendar dataEmprestimo;
+    private Calendar dataDevolucao;
     private String tituloExemplar;
     private String codExemplar;
     private String status; //emprestado ou devolvido
 
-    public Emprestimo(Usuario user, Exemplar exemplar, Date dataEmprestimo, Date dataDevolucao, String tituloLivroExemplar, String statu) {
+    public Emprestimo(Usuario user, Exemplar exemplar, Calendar dataEmprestimo, Calendar dataDevolucao, String tituloLivroExemplar, String statu) {
         this.user = user;
         this.exemplar = exemplar;
         this.dataEmprestimo = dataEmprestimo;
@@ -35,19 +36,20 @@ public class Emprestimo {
         this.user = user;
     }
 
-    public Date getDataEmprestimo() {
+    public Calendar getDataEmprestimo() {
+        System.out.println("Ano: " + dataEmprestimo.get(dataEmprestimo.YEAR));
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(Date dataEmprestimo) {
+    public void setDataEmprestimo(Calendar dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public Date getDataDevolucao() {
+    public Calendar getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
+    public void setDataDevolucao(Calendar dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 

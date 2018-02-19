@@ -1,6 +1,7 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -26,7 +27,7 @@ public interface Usuario
     public void setCodigo(int codigo);
     
     
-    public boolean Emprestimo(Livro l, Date data, Exemplar exe);
+    public boolean Emprestimo(Livro l, Calendar data, Exemplar exe);
     
     public void Devolucao();
     

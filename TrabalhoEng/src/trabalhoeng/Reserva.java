@@ -1,17 +1,18 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Reserva {
 
     private Usuario user;
     private Livro livro;
-    private Date dataReserva;
+    private Calendar dataReserva;
     private String tituloLivro;
     private String status; //ativa ou inativa
 
-    public Reserva(Usuario user, Livro livro, Date dataReserva, String tituloLivro, String statu) {
+    public Reserva(Usuario user, Livro livro, Calendar dataReserva, String tituloLivro, String statu) {
         this.user = user;
         this.livro = livro;
         this.dataReserva = dataReserva;
@@ -19,11 +20,11 @@ public class Reserva {
         this.status= statu;
     }
 
-    public Date getDataReserva() {
+    public Calendar getDataReserva() {
         return dataReserva;
     }
 
-    public void setDataReserva(Date dataReserva) {
+    public void setDataReserva(Calendar dataReserva) {
         this.dataReserva = dataReserva;
     }
 

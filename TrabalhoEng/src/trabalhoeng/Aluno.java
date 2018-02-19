@@ -1,6 +1,7 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -61,20 +62,23 @@ public class Aluno implements Usuario
     }
     
     @Override
-    public boolean Emprestimo(Livro liv, Date dataEmp, Exemplar exe)
+    public boolean Emprestimo(Livro liv, Calendar dataEmp, Exemplar exe)
     {
-        boolean result= false;
+         boolean result= false;
         boolean flag= true;
         int qtdEmpres=0;
-        Iterator <Emprestimo> it= listaEmprestimos.iterator();
-        while (it.hasNext())
+        if (listaEmprestimos != null)
         {
-            Emprestimo e= it.next();
-            if (e.getDataDevolucao().before(dataEmp)) // testa se o emprestimo e antigo, dataEmp tem a data de hoje por isso eh usada como referencia
-                if(e.getStatus().equals("emprestado"))//testa se o emprestimo foi devolvido ou nao
-                    flag= false;
-            if (e.getStatus().equals("emprestado"))
-                qtdEmpres++;
+            Iterator <Emprestimo> it= listaEmprestimos.iterator();
+            while (it.hasNext())
+            {
+                Emprestimo e= it.next();
+                if (e.getDataDevolucao().before(dataEmp)) // testa se o emprestimo e antigo, dataEmp tem a data de hoje por isso eh usada como referencia
+                    if(e.getStatus().equals("emprestado"))//testa se o emprestimo foi devolvido ou nao
+                        flag= false;
+                if (e.getStatus().equals("emprestado"))
+                    qtdEmpres++;
+            }
         }
         if (qtdEmpres < 4) //usuario tem ate 3 emprestimos ainda permite 1
             result= true;
@@ -95,8 +99,15 @@ public class Aluno implements Usuario
     public void Reserva() {}
 
     @Override
-    public void adicionarEmprestimoNaLista(Emprestimo e) {
-        this.listaEmprestimos.add(e);
+    public void adicionarEmprestimoNaLista(Emprestimo e)
+    {
+        if (listaEmprestimos != null)
+            listaEmprestimos.add(e);
+        else
+        {
+            listaEmprestimos= new ArrayList <Emprestimo>();
+            listaEmprestimos.add(e);
+        }
     }
 
     @Override

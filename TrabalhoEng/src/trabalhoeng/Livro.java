@@ -42,7 +42,14 @@ public class Livro {
     
     public void addObservadorNaLista (Usuario user)
     {
-        this.listaObservadores.add(user);
+        if (listaObservadores != null)
+            this.listaObservadores.add(user);
+        else
+        {
+            listaObservadores= new ArrayList<Usuario>();
+            this.listaObservadores.add(user);
+        }
+        
     }
     
     public Usuario getObservadorDaListaPorCod (int cod)

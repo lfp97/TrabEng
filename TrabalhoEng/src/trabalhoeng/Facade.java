@@ -1,60 +1,86 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
 public class Facade
 {
-    private ArrayList <Aluno> listaAlunos= new ArrayList<Aluno> ();
-    private ArrayList <Professor> listaProfessor= new ArrayList<Professor> ();
-    private ArrayList <Funcionario> listaFuncionarios= new ArrayList<Funcionario> ();
+    private ArrayList <Aluno> listaAlunos;
+    private ArrayList <Professor> listaProfessor;
+    private ArrayList <Funcionario> listaFuncionarios;
     private Biblioteca bib;
-    private ArrayList <Livro> listaLivros= new ArrayList<Livro> ();
-    private ArrayList <Exemplar> listaExemplar= new ArrayList<Exemplar> ();
-    private ArrayList <Reserva> listaReservas= new ArrayList<Reserva> ();
-    private ArrayList <Emprestimo> listaEmprestimos= new ArrayList<Emprestimo> ();
-    private Date dataSys;
+    private ArrayList <Livro> listaLivros;
+    private ArrayList <Exemplar> listaExemplar;
+    private ArrayList <Reserva> listaReservas;
+    private ArrayList <Emprestimo> listaEmprestimos;
+    private ArrayList <Usuario> listaUsuarios;
+    private Calendar dataSys;
 
-    public Facade(ArrayList<Aluno> listaAlunos, ArrayList<Professor> listaProfessor, ArrayList<Funcionario> listaFuncionarios, Biblioteca biblioteca, ArrayList<Livro> listaLivros, ArrayList<Exemplar> listaExemplar, ArrayList<Reserva> listaReservas, ArrayList<Emprestimo> listaEmprestimos, Date dataSys) {
+    public Facade(ArrayList<Aluno> listaAlunos, ArrayList<Professor> listaProfessor, ArrayList<Funcionario> listaFuncionarios, Biblioteca bib, ArrayList<Livro> listaLivros, ArrayList<Exemplar> listaExemplar, ArrayList<Reserva> listaReservas, ArrayList<Emprestimo> listaEmprestimos, ArrayList<Usuario> listaUsuarios, Calendar dataSys) {
         this.listaAlunos = listaAlunos;
         this.listaProfessor = listaProfessor;
         this.listaFuncionarios = listaFuncionarios;
-        this.bib = biblioteca;
+        this.bib = bib;
         this.listaLivros = listaLivros;
         this.listaExemplar = listaExemplar;
         this.listaReservas = listaReservas;
         this.listaEmprestimos = listaEmprestimos;
+        this.listaUsuarios = listaUsuarios;
         this.dataSys = dataSys;
     }
     
     public Usuario getUsuarioFromCodigo (int cod)
     {
-        return bib.getUsuarioFromCodigo(cod);
+        Iterator <Usuario> it= listaUsuarios.iterator();
+        Usuario resp=null;
+        while (it.hasNext())
+        {
+            Usuario user= it.next();
+            if (user.getCodigo() == cod)
+                resp= user;
+        }
+        return resp;
     }
     
-    public Livro getLivroFromCodigo (String codLivro)
+    public Livro getLivroFromCodigo(String codigoLivro)
     {
-        return bib.getLivroFromCodigo(codLivro);
+        Iterator<Livro> l = listaLivros.iterator();
+        while (l.hasNext()) {
+            Livro liv = l.next();
+            if (liv.getCodigo().equals(codigoLivro))
+                return liv;
+        }
+        return null;
     }
 
     public void RealizarEmprestimo (int codUsuario, String codLivro)
     {
-        bib.realizarEmprestimo(bib.getUsuarioFromCodigo(codUsuario), bib.getLivroFromCodigo(codLivro));
+        Usuario user= getUsuarioFromCodigo(codUsuario);
+        Livro liv= getLivroFromCodigo(codLivro);
+        bib.realizarEmprestimo(user, liv);
     }
     
     public void RealizarDevolucao (int codUsuario, String codLivro)
     {
-        bib.RealizarDevolucao(bib.getUsuarioFromCodigo(codUsuario), bib.getLivroFromCodigo(codLivro));
+        Usuario user= getUsuarioFromCodigo(codUsuario);
+        Livro liv= getLivroFromCodigo(codLivro);
+        bib.RealizarDevolucao(user, liv);
     }
     
     public void realizarReserva (int codUsuario, String codLivro)
     {
-        bib.RealizarReserva(bib.getUsuarioFromCodigo(codUsuario), bib.getLivroFromCodigo(codLivro), dataSys);
+        Usuario user= getUsuarioFromCodigo(codUsuario);
+        Livro liv= getLivroFromCodigo(codLivro);
+        bib.RealizarReserva(user, liv, dataSys);
     }
     
     public void criarObservador (int codUsuario, String codLivro)
     {
-        bib.CriarObservador(bib.getUsuarioFromCodigo(codUsuario), bib.getLivroFromCodigo(codLivro));
+        Usuario user= getUsuarioFromCodigo(codUsuario);
+        Livro liv= getLivroFromCodigo(codLivro);
+        bib.CriarObservador(user, liv);
     }
     
     public void consultarLivro (String codigo)
@@ -69,7 +95,8 @@ public class Facade
     
     public void consultarNotificacoes (int codUsuario)
     {
-        bib.ConsultarNotificacoes(bib.getUsuarioFromCodigo(codUsuario));
+        Usuario user= getUsuarioFromCodigo(codUsuario);
+        bib.ConsultarNotificacoes(user);
     }
     
     
@@ -137,11 +164,11 @@ public class Facade
         this.listaEmprestimos = listaEmprestimos;
     }
 
-    public Date getDataSys() {
+    public Calendar getDataSys() {
         return dataSys;
     }
 
-    public void setDataSys(Date dataSys) {
+    public void setDataSys(Calendar dataSys) {
         this.dataSys = dataSys;
     }
 }

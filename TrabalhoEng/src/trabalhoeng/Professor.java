@@ -1,6 +1,7 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -71,18 +72,27 @@ public class Professor implements Usuario
     public void setListaReservas(ArrayList<Reserva> listaReservas) {
         this.listaReservas = listaReservas;
     }
-
+    
+    public Iterator getIteratorEmp ()
+    {
+        return listaEmprestimos.iterator();
+    }
+    
     @Override
-    public boolean Emprestimo(Livro liv, Date dataEmp, Exemplar exe)
+    public boolean Emprestimo(Livro liv, Calendar dataEmp, Exemplar exe)
     {
         boolean flag = false;
-        Iterator<Exemplar> ite = getIteratorEmp(); //rodar a lista de emprestimos do usuario procurando se existe algum emprestimo em aberto desse livro
-        while (ite.hasNext())
+        if (listaEmprestimos != null)
         {
-            Exemplar exem = ite.next();
-            if (exem.getCodLivro().equals(liv.getCodigo()))//se teve algum emprestimo de exemplar do livro
-                if (exem.getStatus().equals("emprestado"))//se ainda esta emprestado
-                    flag = true;
+            Iterator<Emprestimo> ite = getIteratorEmp(); //rodar a lista de emprestimos do usuario procurando se existe algum emprestimo em aberto desse livro
+            while (ite.hasNext())
+            {
+                Emprestimo em = ite.next();
+                Exemplar exem= em.getExemplar();
+                if (exem.getCodLivro().equals(liv.getCodigo()))//se teve algum emprestimo de exemplar do livro
+                    if (exem.getStatus().equals("emprestado"))//se ainda esta emprestado
+                        flag = true;
+            }
         }
         if (!flag)
             return true;
@@ -98,14 +108,17 @@ public class Professor implements Usuario
     public void Reserva() {}
 
     @Override
-    public void adicionarEmprestimoNaLista(Emprestimo e) {
-        this.listaEmprestimos.add(e);
+    public void adicionarEmprestimoNaLista(Emprestimo e)
+    {
+        if (listaEmprestimos != null)
+            listaEmprestimos.add(e);
+        else
+        {
+            listaEmprestimos= new ArrayList <Emprestimo>();
+            listaEmprestimos.add(e);
+        }
     }
 
-    @Override
-    public Iterator getIteratorEmp() {
-        return this.listaEmprestimos.iterator();
-    }
 
     @Override
     public Iterator getIteratorRes() {

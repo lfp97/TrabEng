@@ -1,12 +1,13 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 
 public class Biblioteca {
 
-    private Date data;
+    private Calendar data;
     private ArrayList<Livro> listaLivros;
     private ArrayList<Exemplar> listaExemplares;
     private ArrayList<Usuario> listaUsuarios;
@@ -14,7 +15,7 @@ public class Biblioteca {
     private ArrayList<Emprestimo> listaEmprestimos;
     private ArrayList<Usuario> listaObservadores;
 
-    public Biblioteca(Date data, ArrayList<Livro> listaLivros, ArrayList<Exemplar> listaExemplares, ArrayList<Usuario> listaUsuarios, ArrayList<Reserva> listaReservas, ArrayList<Emprestimo> listaEmprestimos, ArrayList<Usuario> listaObservadores) {
+    public Biblioteca(Calendar data, ArrayList<Livro> listaLivros, ArrayList<Exemplar> listaExemplares, ArrayList<Usuario> listaUsuarios, ArrayList<Reserva> listaReservas, ArrayList<Emprestimo> listaEmprestimos, ArrayList<Usuario> listaObservadores) {
         this.data = data;
         this.listaLivros = listaLivros;
         this.listaExemplares = listaExemplares;
@@ -26,7 +27,8 @@ public class Biblioteca {
 
     public void realizarEmprestimo(Usuario user, Livro liv)
     {
-        Date dataEmp = data;
+        Calendar dataEmp = data;
+        //System.out.println("Data do Emprestimo: " + dataEmp.get(dataEmp.YEAR) +"-" + dataEmp.get(dataEmp.MONTH) +"-" + dataEmp.get(dataEmp.DAY_OF_MONTH));
         boolean resp = false;
         Exemplar exe= null;
         if (liv.getQtdExemplares() > 0)
@@ -38,10 +40,18 @@ public class Biblioteca {
             System.out.println("Emprestimo não Realizado, sem exemplar disponivel.");
         if (resp)
         {
-            Date dataDev = dataEmp;
-            dataDev.setDate(dataDev.getDate() + user.getDiasEmprestimo());
+            Calendar dataDev= data;
+            //dataDev.add(3, user.getDiasEmprestimo());
+            dataDev.add(dataDev.DATE, user.getDiasEmprestimo());
+            //System.out.println("Data da dev: " + dataDev.get(dataDev.YEAR) +"-" + dataDev.get(dataDev.MONTH) +"-" + dataDev.get(dataDev.DAY_OF_MONTH));
             Emprestimo e = new Emprestimo(user, exe, dataEmp, dataDev, liv.getTitulo(), "emprestado");
-            listaEmprestimos.add(e);
+            if (listaEmprestimos != null)
+                listaEmprestimos.add(e);
+            else
+            {
+                 listaEmprestimos= new ArrayList <Emprestimo>();
+                 listaEmprestimos.add(e);
+            }
             listaUsuarios.get(listaUsuarios.indexOf(user)).adicionarEmprestimoNaLista(e);
             listaLivros.get(listaLivros.indexOf(liv)).subtrairQtdExemplares();
             System.out.println("Emprestimo Realizado.");
@@ -120,19 +130,41 @@ public class Biblioteca {
             System.out.println("Não existe emprestimo em aberto deste livro para este usuario.");
     }
 
-    public void RealizarReserva(Usuario user, Livro liv, Date dataRes) {
+    public void RealizarReserva(Usuario user, Livro liv, Calendar dataRes) {
         Reserva r = new Reserva(user, liv, dataRes, liv.getTitulo(), "ativa");
-        listaReservas.add(r);
+        
+        if (listaReservas != null)
+                listaReservas.add(r);
+            else
+            {
+                 listaReservas= new ArrayList <Reserva>();
+                 listaReservas.add(r);
+            }
         if (listaLivros.get(listaLivros.indexOf(liv)).getQtdObservadores() > 2) //se o livro que acabou de ganhar reserva tiver apartir de 3 observadores
-        {
             AvisarObservador(liv);
-        }
     }
     
-    public void CriarObservador(Usuario user, Livro liv) {
-        listaObservadores.add(user);
-        listaLivros.get(listaLivros.indexOf(liv)).addObservadorNaLista(user);
-        listaLivros.get(listaLivros.indexOf(liv)).addObservador();
+    public void CriarObservador(Usuario user, Livro liv)
+    {
+        if (listaObservadores != null)
+            listaObservadores.add(user);
+        else
+        {
+            listaObservadores= new ArrayList<Usuario>();
+            listaObservadores.add(user);
+        }
+        if (listaLivros != null)
+        {
+            listaLivros= new ArrayList<Livro> (); // se os livros estiverem sumindo pode ser isso
+            listaLivros.get(listaLivros.indexOf(liv)).addObservadorNaLista(user);
+            listaLivros.get(listaLivros.indexOf(liv)).addObservador();
+        }
+        else
+        {
+            listaLivros.get(listaLivros.indexOf(liv)).addObservadorNaLista(user);
+            listaLivros.get(listaLivros.indexOf(liv)).addObservador();
+        }
+        
     }
 
     public void AvisarObservador(Livro l) { //mudar esse metodo caso queria q mostre algo na tela ou n
@@ -154,7 +186,8 @@ public class Biblioteca {
             if (l.getCodigo().equalsIgnoreCase(codigo)) {
                 System.out.println("Título: " + l.getTitulo());
                 System.out.println("Quantidade de Reservas: " + l.getQtdReservas());
-                if (l.getQtdReservas() != 0) {
+                if (l.getQtdReservas() != 0)
+                {
                     Iterator<Reserva> itRes = l.getIteratorReservas();
                     while (itRes.hasNext()) {
                         Reserva auxre = itRes.next();
@@ -222,10 +255,12 @@ public class Biblioteca {
                 while (e.hasNext()) //emprestimos
                 {
                     Emprestimo emp = e.next();
+                    Calendar auxDataEmp= emp.getDataEmprestimo();
+                    Calendar auxDataDev= emp.getDataDevolucao();
                     System.out.println("Titulo do Livro deste exemplar: " + emp.getTituloExemplar());
-                    System.out.println("Data do Emprestimo: " + emp.getDataEmprestimo());
+                    System.out.println("Data do Emprestimo: " + auxDataEmp.get(auxDataEmp.YEAR) +"-" + auxDataEmp.get(auxDataEmp.MONTH) +"-" + auxDataEmp.get(auxDataEmp.DAY_OF_MONTH));
                     System.out.println("Status:  " + emp.getStatus());
-                    System.out.println("Data da Devolucao:  " + emp.getDataDevolucao());
+                    System.out.println("Data da Devolucao:  " + auxDataDev.get(auxDataDev.YEAR) +"-" + auxDataDev.get(auxDataDev.MONTH) +"-" + auxDataDev.get(auxDataDev.DAY_OF_MONTH));
                 }
                 Iterator<Reserva> r = u.getIteratorRes();
                 while (r.hasNext()) // reservas            
@@ -302,6 +337,7 @@ public class Biblioteca {
     public ArrayList<Emprestimo> getListaEmprestimos() {
         return listaEmprestimos;
     }
+    
 
     public void setListaEmprestimos(ArrayList<Emprestimo> listaEmprestimos) {
         this.listaEmprestimos = listaEmprestimos;
@@ -315,11 +351,11 @@ public class Biblioteca {
         this.listaObservadores = listaObservadores;
     }
 
-    public Date getData() {
+    public Calendar getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(Calendar data) {
         this.data = data;
     }
 

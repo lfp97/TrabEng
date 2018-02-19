@@ -1,6 +1,7 @@
 package trabalhoeng;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -15,7 +16,12 @@ public class TrabalhoEng
         ArrayList <Exemplar> listaExemplar= new ArrayList<Exemplar> ();
         ArrayList <Reserva> listaReservas= new ArrayList<Reserva> ();
         ArrayList <Emprestimo> listaEmprestimos= new ArrayList<Emprestimo> ();
-        Date dataSys= new Date(2018, 01, 01);
+        Date dataAux= new Date(2018, 01, 01);
+        Calendar dataSys= Calendar.getInstance();
+        dataSys.set(Calendar.YEAR, 2018);
+        dataSys.set(Calendar.MONTH, 1);
+        dataSys.set(Calendar.DAY_OF_MONTH, 1);
+        
         ArrayList <Usuario> listaUsuarios=new ArrayList<Usuario> ();
         
         Funcionario joao= new Funcionario("Joao da Silva", 123, null, null); listaFuncionarios.add(joao); listaUsuarios.add(joao);
@@ -44,43 +50,51 @@ public class TrabalhoEng
         Exemplar design2= new Exemplar("400", "09", "disponivel"); listaExemplar.add(design2);
         
         Biblioteca bib= new Biblioteca (dataSys, listaLivros, listaExemplar, listaUsuarios, listaReservas, listaEmprestimos, listaUsuarios);
-        Facade f= new Facade(listaAlunos, listaProfessor, listaFuncionarios, bib, listaLivros, listaExemplar, listaReservas, listaEmprestimos, dataSys);
+        Facade f= new Facade (listaAlunos, listaProfessor, listaFuncionarios, bib, listaLivros, listaExemplar, listaReservas, listaEmprestimos, listaUsuarios, dataSys);
         
         Scanner s= new Scanner (System.in);
-        String comando, op, arg1, arg2;
+        String comando, op, arg2;
+        int arg1Num=0;
         
         System .out.println("Digite um comando: ");
         comando= s.nextLine();
-        boolean flag= false;
-        if (comando.length() == 7)
-            flag= true;
         op= comando.substring(0, 3);
-        arg1= comando.substring(4, 7);
-        if(!flag)
-            arg2= comando.substring(8, 11);
-        while (!op.equalsIgnoreCase("sai"))
+        String aux= comando.substring(4, 7);
+        while (! op.equalsIgnoreCase("sai"))
         {//1 - emprestimo, 2- devolucao, 3-reserva, 4-regObs, 5-conLiv, 6-conUsu, 7-consNoti
-            if (comando.contains("emp"))
-                f.RealizarEmprestimo(Integer.parseInt(arg1), arg2);
-            if (comando.contains("dev"))
-                f.RealizarDevolucao(Integer.parseInt(arg1), arg2);
-            if (comando.contains("res"))
-                f.realizarReserva(Integer.parseInt(arg1), arg2);
-            if (comando.contains("obs"))
-                f.criarObservador(Integer.parseInt(arg1), arg2);
-            if (comando.contains("liv"))
-                f.consultarLivro(arg1);
-            if (comando.contains("usu"))
-                f.consultarUsuario(Integer.parseInt(arg1));
-            if (comando.contains("ntf"))
-                f.consultarNotificacoes(Integer.parseInt(arg1));
-            flag= false;
+            if (op.equalsIgnoreCase("liv"))
+                f.consultarLivro(aux);
+            if (op.equalsIgnoreCase("usu"))
+            {
+                arg1Num= Integer.parseInt(aux);
+                f.consultarUsuario(arg1Num);
+            }
+            if (op.equalsIgnoreCase("ntf"))
+            {
+                arg1Num= Integer.parseInt(aux);
+                f.consultarNotificacoes(arg1Num);
+            }
+            else
+            {
+                arg1Num= Integer.parseInt(aux);
+                arg2= comando.substring(8, 11);
+                if (comando.contains("emp"))
+                    f.RealizarEmprestimo(arg1Num, arg2);
+                if (comando.contains("dev"))
+                    f.RealizarDevolucao(arg1Num, arg2);
+                if (comando.contains("res"))
+                    f.realizarReserva(arg1Num, arg2);
+                if (comando.contains("obs"))
+                    f.criarObservador(arg1Num, arg2);
+                /*if (comando.contains("usu"))
+                    f.consultarUsuario(arg1Num);
+                if (comando.contains("ntf"))
+                    f.consultarNotificacoes(arg1Num);*/
+            }
             System .out.println("Digite um comando: ");
             comando= s.nextLine();
-            if (comando.length() == 7)
-                flag= true;
-            if(!flag)
-                arg2= comando.substring(8, 11);
+            op= comando.substring(0, 3);
+            aux= comando.substring(4, 7);
         }
     }
 }
