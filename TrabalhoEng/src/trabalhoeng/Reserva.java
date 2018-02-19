@@ -31,6 +31,11 @@ public class Reserva {
         return user;
     }
 
+    public String getCodLivro ()
+    {
+        return this.livro.getCodigo();
+    }
+    
     public String getNomeUsuario() {
         return user.getNome();
     }

@@ -1,23 +1,16 @@
 package trabalhoeng;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-
-public class Exemplar extends Livro {
+public class Exemplar {
 
     private String codLivro;
     private String codExemplar;
     private String status;
-    private Date dataEmprestimo;
-    private Date dataDevolucao;
-    private String nomeUsuarioEmprestado;
 
-    public Exemplar(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, int qtdExemplares, ArrayList<Reserva> listaReservas, int qtdObs) {
-        super(codigo, titulo, editora, autores, edicao, anoPublic, listaExemplares, qtdExemplares, listaReservas, qtdObs);
+    public Exemplar(String codLivro, String codExemplar, String status) {
+        this.codLivro = codLivro;
+        this.codExemplar = codExemplar;
+        this.status = status;
     }
-
-    
 
     public String getCodLivro() {
         return codLivro;
@@ -42,29 +35,4 @@ public class Exemplar extends Livro {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public Date getDataEmprestimo() {
-        return dataEmprestimo;
-    }
-
-    public void setDataEmprestimo(Date dataEmprestimo) {
-        this.dataEmprestimo = dataEmprestimo;
-    }
-
-    public Date getDataDevolucao() {
-        return dataDevolucao;
-    }
-
-    public void setDataDevolucao(Date dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
-    }
-
-    public String getNomeUsuarioEmprestado() {
-        return nomeUsuarioEmprestado;
-    }
-
-    public void setNomeUsuarioEmprestado(String nomeUsuarioEmprestado) {
-        this.nomeUsuarioEmprestado = nomeUsuarioEmprestado;
-    }
-
 }

@@ -6,12 +6,14 @@ import java.util.Iterator;
 
 public class Professor implements Usuario
 {
+
     private String nome;
-    private int diasEmprestimo=7;
+    private int diasEmprestimo = 7;
     private int codigo;
+    private int notificacoes;
     private ArrayList<Emprestimo> listaEmprestimos;
     private ArrayList<Reserva> listaReservas;
-    private int notificacoes;
+    //private int notificacoes;
 
     public Professor(String nome, int codigo, ArrayList<trabalhoeng.Emprestimo> listaEmprestimos, ArrayList<trabalhoeng.Reserva> listaReservas, int notificacoes) {
         this.nome = nome;
@@ -25,10 +27,17 @@ public class Professor implements Usuario
     public int getDiasEmprestimo() {
         return this.diasEmprestimo;
     }
-    
-    @Override
+
     public void addNotificacao() {
         this.notificacoes += 1;
+    }
+    
+    public int getNotificacoes() {
+        return notificacoes;
+    }
+
+    public void setNotificacoes(int notificacoes) {
+        this.notificacoes = notificacoes;
     }
 
     public String getNome() {
@@ -63,19 +72,28 @@ public class Professor implements Usuario
         this.listaReservas = listaReservas;
     }
 
-    public int getNotificacoes() {
-        return notificacoes;
-    }
-
-    public void setNotificacoes(int notificacoes) {
-        this.notificacoes = notificacoes;
+    @Override
+    public boolean Emprestimo(Livro liv, Date dataEmp, Exemplar exe)
+    {
+        boolean flag = false;
+        Iterator<Exemplar> ite = getIteratorEmp(); //rodar a lista de emprestimos do usuario procurando se existe algum emprestimo em aberto desse livro
+        while (ite.hasNext())
+        {
+            Exemplar exem = ite.next();
+            if (exem.getCodLivro().equals(liv.getCodigo()))//se teve algum emprestimo de exemplar do livro
+                if (exem.getStatus().equals("emprestado"))//se ainda esta emprestado
+                    flag = true;
+        }
+        if (!flag)
+            return true;
+        System.out.println("Emprestimo não Realizado, usuario ja esta com exemplar emprestado");
+        return false;
     }
 
     @Override
-    public boolean Emprestimo(Date data) {return false;}
+    public void Devolucao()
+    {}
 
-    @Override
-    public void Devolucao() {}
     @Override
     public void Reserva() {}
 
@@ -85,14 +103,12 @@ public class Professor implements Usuario
     }
 
     @Override
-    public Iterator getIteratorEmp()
-    {
+    public Iterator getIteratorEmp() {
         return this.listaEmprestimos.iterator();
     }
 
     @Override
-    public Iterator getIteratorRes()
-    {
+    public Iterator getIteratorRes() {
         return this.listaReservas.iterator();
     }
 

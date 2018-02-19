@@ -16,6 +16,7 @@ public class Livro {
     private int qtdExemplares;
     private ArrayList<Reserva> listaReservas;
     private int qtdObs;
+    private ArrayList<Usuario> listaObservadores;
 
     public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublic, ArrayList<Exemplar> listaExemplares, int qtdExemplares, ArrayList<Reserva> listaReservas, int qtdObs) {
         this.codigo = codigo;
@@ -28,8 +29,35 @@ public class Livro {
         this.qtdExemplares = qtdExemplares;
         this.listaReservas = listaReservas;
         this.qtdObs = qtdObs;
+        this.listaObservadores = null;
     }
 
+    public ArrayList<Usuario> getListaObservadores() {
+        return listaObservadores;
+    }
+
+    public void setListaObservadores(ArrayList<Usuario> listaObservadores) {
+        this.listaObservadores = listaObservadores;
+    }
+    
+    public void addObservadorNaLista (Usuario user)
+    {
+        this.listaObservadores.add(user);
+    }
+    
+    public Usuario getObservadorDaListaPorCod (int cod)
+    {
+        Usuario resp=null;
+        Iterator <Usuario> it= listaObservadores.iterator();
+        while (it.hasNext())
+        {
+            Usuario aux= it.next();
+            if (aux.getCodigo() == cod)
+                resp= aux;
+        }
+        return resp;
+    }
+    
     public String getCodigo() {
         return codigo;
     }
@@ -90,15 +118,13 @@ public class Livro {
         return listaExemplares.iterator();
     }
 
-    public int getNumeroReservas() {
-        Iterator<Exemplar> iterator = listaExemplares.iterator();
+    public int getQtdReservas() {
+        Iterator<Reserva> iterator = listaReservas.iterator();
         int qtd = 0;
         while (iterator.hasNext()) {
-            Exemplar aux = iterator.next();
-            if (!(aux.getStatus().equalsIgnoreCase("Disponível"))) //testando se o exemplar esta >indisponivel<
-            {
+            Reserva res= iterator.next();
+            if (res.getCodLivro().equalsIgnoreCase(getCodigo()) && res.getStatus().equalsIgnoreCase("ativa")) //testando se a reserva eh sobre o livro e se a reserva esta ativa
                 qtd++;
-            }
         }
         return qtd;
     }

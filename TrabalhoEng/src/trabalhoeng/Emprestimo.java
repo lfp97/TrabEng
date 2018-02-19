@@ -12,12 +12,12 @@ public class Emprestimo {
     private String codExemplar;
     private String status; //emprestado ou devolvido
 
-    public Emprestimo(Usuario user, Exemplar exemplar, Date dataEmprestimo, Date dataDevolucao, String statu) {
+    public Emprestimo(Usuario user, Exemplar exemplar, Date dataEmprestimo, Date dataDevolucao, String tituloLivroExemplar, String statu) {
         this.user = user;
         this.exemplar = exemplar;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
-        this.tituloExemplar = exemplar.getTitulo();
+        this.tituloExemplar = tituloLivroExemplar;
         this.codExemplar = exemplar.getCodExemplar();
         this.status= statu;
     }
@@ -33,11 +33,6 @@ public class Emprestimo {
 
     public void setUser(Usuario user) {
         this.user = user;
-    }
-    
-    public String getNome ()
-    {
-        return this.user.getNome();
     }
 
     public Date getDataEmprestimo() {
@@ -73,7 +68,7 @@ public class Emprestimo {
     }
 
     public String getNomeUsuario() {
-        return user.getNome();
+        return this.user.getNome();
     }
 
     public int getCodUsuario() {

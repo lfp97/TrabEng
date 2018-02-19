@@ -9,17 +9,7 @@ public interface Usuario
     String nome="";
     int cod=0;
     int diasEmprestimo=0;
-    /*private String nome;
-    private int codigo;
-    private ArrayList <Emprestimo> listaEmprestimos;
-    private ArrayList <Reserva> listaReservas;*/
-
-    /*public Usuario(String nome, int codigo, ArrayList<Emprestimo> listaEmprestimos, ArrayList<Reserva> listaReservas) {
-        this.nome = nome;
-        this.codigo = codigo;
-        this.listaEmprestimos = listaEmprestimos;
-        this.listaReservas = listaReservas;
-    }*/
+    int notificacoes=0;
     
     public int getDiasEmprestimo ();
     
@@ -35,11 +25,13 @@ public interface Usuario
 
     public void setCodigo(int codigo);
     
-    public boolean Emprestimo(Date data);
+    
+    public boolean Emprestimo(Livro l, Date data, Exemplar exe);
     
     public void Devolucao();
     
     public void Reserva();
+    
 
     public ArrayList <Emprestimo> getListaEmprestimos();
 
