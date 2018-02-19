@@ -5,14 +5,14 @@ import java.util.Date;
 
 public class Facade
 {
-    private ArrayList <Aluno> listaAlunos;
-    private ArrayList <Professor> listaProfessor;
-    private ArrayList <Funcionario> listaFuncionarios;
+    private ArrayList <Aluno> listaAlunos= new ArrayList<Aluno> ();
+    private ArrayList <Professor> listaProfessor= new ArrayList<Professor> ();
+    private ArrayList <Funcionario> listaFuncionarios= new ArrayList<Funcionario> ();
     private Biblioteca bib;
-    private ArrayList <Livro> listaLivros;
-    private ArrayList <Exemplar> listaExemplar;
-    private ArrayList <Reserva> listaReservas;
-    private ArrayList <Emprestimo> listaEmprestimos;
+    private ArrayList <Livro> listaLivros= new ArrayList<Livro> ();
+    private ArrayList <Exemplar> listaExemplar= new ArrayList<Exemplar> ();
+    private ArrayList <Reserva> listaReservas= new ArrayList<Reserva> ();
+    private ArrayList <Emprestimo> listaEmprestimos= new ArrayList<Emprestimo> ();
     private Date dataSys;
 
     public Facade(ArrayList<Aluno> listaAlunos, ArrayList<Professor> listaProfessor, ArrayList<Funcionario> listaFuncionarios, Biblioteca biblioteca, ArrayList<Livro> listaLivros, ArrayList<Exemplar> listaExemplar, ArrayList<Reserva> listaReservas, ArrayList<Emprestimo> listaEmprestimos, Date dataSys) {

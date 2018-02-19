@@ -8,15 +8,15 @@ public class TrabalhoEng
 {
     public static void main(String[] args)
     {
-        ArrayList <Aluno> listaAlunos= null;
-        ArrayList <Professor> listaProfessor= null;
-        ArrayList <Funcionario> listaFuncionarios= null;
-        ArrayList <Livro> listaLivros= null;
-        ArrayList <Exemplar> listaExemplar= null;
-        ArrayList <Reserva> listaReservas= null;
-        ArrayList <Emprestimo> listaEmprestimos= null;
+        ArrayList <Aluno> listaAlunos= new ArrayList<Aluno> ();
+        ArrayList <Professor> listaProfessor= new ArrayList<Professor> ();
+        ArrayList <Funcionario> listaFuncionarios = new ArrayList<Funcionario> ();
+        ArrayList <Livro> listaLivros= new ArrayList<Livro> ();
+        ArrayList <Exemplar> listaExemplar= new ArrayList<Exemplar> ();
+        ArrayList <Reserva> listaReservas= new ArrayList<Reserva> ();
+        ArrayList <Emprestimo> listaEmprestimos= new ArrayList<Emprestimo> ();
         Date dataSys= new Date(2018, 01, 01);
-        ArrayList <Usuario> listaUsuarios=null;
+        ArrayList <Usuario> listaUsuarios=new ArrayList<Usuario> ();
         
         Funcionario joao= new Funcionario("Joao da Silva", 123, null, null); listaFuncionarios.add(joao); listaUsuarios.add(joao);
         Aluno luiz= new Aluno("Luiz Fernando Rodrigues", 456, null, null); listaAlunos.add(luiz); listaUsuarios.add(luiz);
@@ -48,14 +48,18 @@ public class TrabalhoEng
         
         Scanner s= new Scanner (System.in);
         String comando, op, arg1, arg2;
-        //1 - emprestimo, 2- devolucao, 3-reserva, 4-regObs, 5-conLiv, 6-conUsu, 7-consNoti
+        
         System .out.println("Digite um comando: ");
         comando= s.nextLine();
+        boolean flag= false;
+        if (comando.length() == 7)
+            flag= true;
         op= comando.substring(0, 3);
         arg1= comando.substring(4, 7);
-        arg2= comando.substring(8, 11);
+        if(!flag)
+            arg2= comando.substring(8, 11);
         while (!op.equalsIgnoreCase("sai"))
-        {
+        {//1 - emprestimo, 2- devolucao, 3-reserva, 4-regObs, 5-conLiv, 6-conUsu, 7-consNoti
             if (comando.contains("emp"))
                 f.RealizarEmprestimo(Integer.parseInt(arg1), arg2);
             if (comando.contains("dev"))
@@ -70,8 +74,13 @@ public class TrabalhoEng
                 f.consultarUsuario(Integer.parseInt(arg1));
             if (comando.contains("ntf"))
                 f.consultarNotificacoes(Integer.parseInt(arg1));
+            flag= false;
             System .out.println("Digite um comando: ");
             comando= s.nextLine();
+            if (comando.length() == 7)
+                flag= true;
+            if(!flag)
+                arg2= comando.substring(8, 11);
         }
     }
 }
